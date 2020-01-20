@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 django = "*"
-mypy = "*"
+pylama = "*"
 
 [requires]
 python_version = "3.8"
