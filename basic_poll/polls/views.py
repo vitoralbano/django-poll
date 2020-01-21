@@ -37,7 +37,7 @@ def vote(request, question_id):
         return render(request, 'polls/detail.html', context)
 
     else:
-        selected_choice.votes = F 1
+        selected_choice.votes += 1
         selected_choice.save()
 
         # Always return an HttpResponseRedirect after successfully dealing
