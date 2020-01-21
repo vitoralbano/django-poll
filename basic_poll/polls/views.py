@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .models import Question, Choice
@@ -17,12 +17,15 @@ def detail(request, question_id):
 
 
 def results(request, question_id):
-    return HttpResponse(f"You're looking at the results of question {question_id}")
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'polls/result.html', {'question': question})
 
 
 def vote(request, question_id):
+    # TODO: Avoid racing condition
+    # https://docs.djangoproject.com/en/3.0/ref/models/expressions/#avoiding-race-conditions-using-f
     question = get_object_or_404(Question, pk=question_id)
-    
+
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
 
@@ -32,9 +35,9 @@ def vote(request, question_id):
             'error_message': "You didn't selected a choice."
         }
         return render(request, 'polls/detail.html', context)
-        
+
     else:
-        selected_choice.votes += 1
+        selected_choice.votes = F 1
         selected_choice.save()
 
         # Always return an HttpResponseRedirect after successfully dealing
@@ -42,4 +45,3 @@ def vote(request, question_id):
         # user hits the Back button.
 
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-
