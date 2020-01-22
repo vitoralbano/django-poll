@@ -26,8 +26,6 @@ class ResultView(generic.DetailView):
 
 
 def vote(request, question_id):
-    # TODO: Avoid racing condition
-    # https://docs.djangoproject.com/en/3.0/ref/models/expressions/#avoiding-race-conditions-using-f
     question = get_object_or_404(Question, pk=question_id)
 
     try:
