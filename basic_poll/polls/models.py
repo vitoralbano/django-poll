@@ -12,7 +12,7 @@ class Question(models.Model):
         return self.question_text
 
     def __repr__(self):
-        return f"{self.__class__.__name__}(question_text='{self.question_text}', pub_date='{self.pub_date}')"
+        return f"<{self.__class__.__name__}: {self.question_text}>"
 
     def was_published_recently(self):
         now = timezone.now()
@@ -28,4 +28,4 @@ class Choice(models.Model):
         return self.choice_text
 
     def __repr__(self):
-        return f"{self.__class__.__name__}(question='{self.question}', choice_text='{self.choice_text}')"
+        return f"<{self.__class__.__name__}: {self.choice_text}>"
