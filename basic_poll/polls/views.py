@@ -41,7 +41,7 @@ def vote(request, question_id):
     except (KeyError, Choice.DoesNotExist):
         context = {
             'question': question,
-            'error_message': "You didn't selected a choice."
+            'error_message': "You should check in on some of those fields below."
         }
         return render(request, 'polls/detail.html', context)
 
